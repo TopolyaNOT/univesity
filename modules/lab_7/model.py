@@ -2,6 +2,7 @@ from typing import List, Tuple
 import random
 
 
+
 class Mammals:
     def __init__(
         self,
@@ -27,9 +28,7 @@ class Mammals:
 
 
     def sleep(self) -> float:
-        if not self.is_alive or not self._is_weight_ok:
-            self._dead_stats()
-            print("It's dead")
+        if self._check_death():
             return 0
 
         self._energy = round(self.height - self.weight / self.height * 50, 2)
@@ -45,16 +44,13 @@ class Mammals:
     
 
     def eat(self, amount: float) -> float:
-        if not self.is_alive or not self._is_weight_ok:
-            self._dead_stats()
-            print("It's dead")
+        if self._check_death():
             return 0
         elif self.weight >= self.start_mass * 3:
             self.is_alive = False
             self._dead_stats()
             print("Animal dead")
             return 0
-        
 
         if amount <= self.weight // 20 and amount >= self.volume ** 0.3:
             self._energy += amount / self.weight * 20
@@ -66,18 +62,13 @@ class Mammals:
             self._energy += self.weight // 20 / self.weight * 20
             self.weight += self.weight // 20
             return self._energy
-        
-        
 
-        
         print("Not enough energy")
         return 0
     
 
     def go(self, energy: float) -> float:
-        if not self.is_alive or not self._is_weight_ok:
-            self._dead_stats()
-            print("It's dead")
+        if self._check_death():
             return 0
         
         if energy > self._energy:
@@ -96,6 +87,14 @@ class Mammals:
     def _is_weight_ok(self) -> bool:
         return self.start_mass * 3 < self.weight
 
+
+    def _check_death(self) -> bool:
+        if self.is_alive and self._is_weight_ok:
+            self._dead_stats()
+            print("It's dead")
+            return False
+        return True
+    
 
     def _dead_stats(self) -> None:
         if self.is_alive:

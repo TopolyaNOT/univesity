@@ -1,0 +1,20 @@
+{
+    "dragon" : {
+            "weight" : 150,
+            "color" : "Golden",
+            "wings_len" : 50,
+            "base_price" : 3000000
+    },
+    "salamandra" : {
+            "weight" : 900,
+            "color" : "Red",
+            "wings_len" : 15,
+            "base_price" : 1000000
+    },
+    "dinosaur" : {
+            "weight" : 3250,
+            "color" : "Brown",
+            "wings_len" : 1,
+            "base_price" : 2200000
+    }
+    }

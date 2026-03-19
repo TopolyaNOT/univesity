@@ -42,7 +42,7 @@ class Dragon(Lizard):
 
 
 
-class Dinsaur(Lizard):
+class Dinosaur(Lizard):
     def __init__(
             self,
             name: str,
@@ -81,5 +81,5 @@ class Cat(Lizard):
 
 
 
-Lizard_type = Salamandra | Dragon | Dinsaur
+Lizard_type = Salamandra | Dragon | Dinosaur
 Lizard_post_type = Lizard_type | Cat

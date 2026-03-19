@@ -1,6 +1,6 @@
 import random
 from typing import List, Optional, Dict, Any
-from lizards.lizards_types import Lizard_post_type, Lizard_type, Dragon, Dinsaur, Salamandra, Cat
+from lizards.lizards_types import Lizard_post_type, Lizard_type, Dragon, Dinosaur, Salamandra, Cat
 import json
 
 
@@ -42,7 +42,7 @@ class LizardGererator():
 
         wings_len = random.randint(0, 5)
         self.dinosaur_count += 1
-        return Dinsaur(
+        return Dinosaur(
             name=f"Dinosaur_{self.dinosaur_count}",
             weight=weigth,
             color=color,
@@ -80,8 +80,8 @@ class LizardGererator():
             color = random.choice(self.colors)
             wings_len = random.randint(10, 30)
             self.salamandra_count += 1
-            ls.append(Dragon(
-                name=f'Salamandra_{self.drangon_count}',
+            ls.append(Salamandra(
+                name=f'Salamandra_{self.salamandra_count}',
                 weight=weigth,
                 color=color,
                 wings_len=wings_len,
@@ -99,8 +99,8 @@ class LizardGererator():
             color = random.choice(self.colors[1:])
             wings_len = random.randint(0, 5)
             self.dinosaur_count += 1
-            ld.append(Dragon(
-                name=f'Dinosaur_{self.drangon_count}',
+            ld.append(Dinosaur(
+                name=f'Dinosaur_{self.dinosaur_count}',
                 weight=weigth,
                 color=color,
                 wings_len=wings_len,
@@ -109,7 +109,7 @@ class LizardGererator():
         return ld
 
 
-    def _gererate_cat(self, amount: int = 0) -> List[Lizard_post_type]:
+    def _gererate_cat(self, amount: int | None = 0 ) -> List[Lizard_post_type]:
             if amount is None:
                 return []
             lc = []
@@ -146,7 +146,9 @@ class LizardGererator():
 
 if __name__ == "__main__":
     L = LizardGererator()
-    for _ in range(10000):
-        L.get_random_lizard()
+    for _ in range(1):
+        d = L._gererate_dinosaur(3)
+        print(d)
+
 
     print(L.drangon_count,"\n",L.salamandra_count,"\n", L.dinosaur_count)

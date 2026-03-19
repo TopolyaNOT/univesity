@@ -6,32 +6,58 @@ import random
 import re
 
 
-class Shop:
+class Massage:
+    def _print_welcome(self, user: Any, size: int) -> None:
+        print(
+            "\n======================================================="
+            f"\n                 WELCOME {user.upper()}               "
+            f"\n               TODAY WE HAVE {size} EGGS        "
+            "\n=======================================================")
+        
+    
+    def _prinnt_all_lizards(self, lizard_list: List[Lizard_type]) -> None:
+        print(
+            "\n==================================================="
+            "\n||                  ALL LIZARDS                  ||"
+            "\n===================================================")
+        for i in lizard_list:
+            print('\n',i)
+
+
+    def _print_new_lizards(self) -> None:
+                print(
+            "\n==================================================="
+            "\n||                  NEW LIZARDS                  ||"
+            "\n===================================================")
+                
+
+    def _print_bay(self) -> None:
+        print(
+            "\n==================================================="
+            "\n||          THANK YOU FOR PURCHASE               ||"
+            "\n===================================================")
+    
+
+class Shop(Massage):
     def __init__(self, size: int = random.randint(1, 50)):
         self._size = size
         self._lizardgererator = LizardGererator()
 
 
     def shopping(self, user: Any) -> List[Lizard_type]:
-        self._welcome(user)
+        self._print_welcome(user, self._size)
 
         user_basket = self._buy()
         self._prinnt_all_lizards(user_basket)
 
         user_basket = self._sell(user_basket)
 
-
+        self._print_bay()
         print(self._advertisement(user_basket))
+        
 
         return user_basket
 
-
-    def _welcome(self, user: Any) -> None:
-        print(
-            "\n======================================================="
-            f"\n                 WELCOME {user.upper()}               "
-            f"\n               TODAY WE HAVE {self._size} EGGS        "
-            "\n=======================================================")
 
 
     def _buy(self) -> List[Lizard_type]:
@@ -53,7 +79,7 @@ class Shop:
 
     def _advertisement(self, user_basket: List[Lizard_type]) -> str:
         l = Counter([lizard.lizard_type for lizard in user_basket])
-        types_result = f"Dragons \t:\t{l['dragons']}\nSalamandras\t:\t{l['salamandra']}\nDinosaurs\t:\t{l['dinosaur']}"
+        types_result = f"Dragons \t:\t{l['dragon']}\nSalamandras\t:\t{l['salamandra']}\nDinosaurs\t:\t{l['dinosaur']}"
         phrase = None
         l_len = len(user_basket)
         if l_len < 3:
@@ -63,10 +89,6 @@ class Shop:
         else:
             phrase = "Men... WTF  ???"
 
-        print(
-            "\n==================================================="
-            "\n||          THANK YOU FOR PURCHASE               ||"
-            "\n===================================================")
         return f'\n{types_result}\n\n{phrase}'
     
 
@@ -80,10 +102,9 @@ class Shop:
 
         raw_lizard_to_change = input("\nEnter lizard's name to change: ")
         clean_lizard_to_change = re.findall(r"[a-zA-Z]+_\d+", raw_lizard_to_change)
-        print(
-            "\n==================================================="
-            "\n||                  NEW LIZARDS                  ||"
-            "\n===================================================")
+
+        self._print_new_lizards()
+
         for i, v in enumerate(lizard_list):
             if v.name in clean_lizard_to_change:
                 compensation += v.price // 3
@@ -97,16 +118,6 @@ class Shop:
         self._prinnt_all_lizards(lizard_list)
 
         return self._sell(lizard_list)     
-
-
-    def _prinnt_all_lizards(self, lizard_list: List[Lizard_type]) -> None:
-        print(
-            "\n==================================================="
-            "\n||                  ALL LIZARDS                  ||"
-            "\n===================================================")
-        for i in lizard_list:
-            print('\n',i)
-
 
 
 

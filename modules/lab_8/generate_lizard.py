@@ -1,17 +1,17 @@
 import random
 from typing import List, Optional, Dict, Any
-from lizards.lizards_types import Dragon, Dinsaur, Salamandra
+from lizards.lizards_types import Lizard_post_type, Lizard_type, Dragon, Dinsaur, Salamandra, Cat
 import json
 
 
 class LizardGererator():
-    def __init__(self, standards: str = "modules/lab_8/standarts.json", colors: Optional[List[str]] = None):
+    def __init__(self, standards: str = "modules/lab_8/data/standarts.json", colors: Optional[List[str]] = None):
         self.colors: List[str] = ['Red', 'Golden', 'Brown'] if colors is None else colors
         self.standards: Dict[str, Dict[str, Any]] = self._load_standarts(standards)
-        self.drangon_count = self.salamandra_count = self.dinosaur_count = 0
+        self.drangon_count = self.salamandra_count = self.dinosaur_count = self.cat_count = 0
 
 
-    def get_random_lizard(self) -> Dragon | Dinsaur | Salamandra:
+    def get_random_lizard(self) -> Lizard_type:
 
         weigth = random.randint(100, 5_000)
         if weigth <= 300:
@@ -51,7 +51,83 @@ class LizardGererator():
         )
     
 
-    def _load_standarts(self, file_path: str = "modules/lab_8/standarts.json"):
+    def _gererate_dragon(self, amount: int | None = 0) -> List[Lizard_post_type]:
+        if amount is None:
+            return []
+        
+        ld = []
+        for _ in range(amount):
+            weigth = random.randint(100, 300)
+            color = random.choice(self.colors[1:])
+            wings_len = random.randint(30, 50)
+            self.drangon_count += 1
+            ld.append(Dragon(
+                name=f'Dragon_{self.drangon_count}',
+                weight=weigth,
+                color=color,
+                wings_len=wings_len,
+                price=self._form_price(weigth, color, wings_len, 'dragon')
+            ))
+        return ld
+    
+
+    def _gererate_salamandra(self, amount: int | None = 0) -> List[Lizard_post_type]:
+        if amount is None:
+            return []
+        ls = []
+        for _ in range(amount):
+            weigth = random.randint(300, 1500)
+            color = random.choice(self.colors)
+            wings_len = random.randint(10, 30)
+            self.salamandra_count += 1
+            ls.append(Dragon(
+                name=f'Salamandra_{self.drangon_count}',
+                weight=weigth,
+                color=color,
+                wings_len=wings_len,
+                price=self._form_price(weigth, color, wings_len, 'salamandra')
+            ))
+        return ls
+    
+
+    def _gererate_dinosaur(self, amount: int | None = 0) -> List[Lizard_post_type]:
+        if amount is None:
+            return []
+        ld = []
+        for _ in range(amount):
+            weigth = random.randint(1500, 5000)
+            color = random.choice(self.colors[1:])
+            wings_len = random.randint(0, 5)
+            self.dinosaur_count += 1
+            ld.append(Dragon(
+                name=f'Dinosaur_{self.drangon_count}',
+                weight=weigth,
+                color=color,
+                wings_len=wings_len,
+                price=self._form_price(weigth, color, wings_len, 'dinosaur')
+            ))
+        return ld
+
+
+    def _gererate_cat(self, amount: int = 0) -> List[Lizard_post_type]:
+            if amount is None:
+                return []
+            lc = []
+            for _ in range(amount):
+                weigth = random.randint(5, 12)
+                color = random.choice(self.colors)
+                self.cat_count += 1
+                lc.append(Cat(
+                    name=f'Cat_{self.cat_count}',
+                    weight=weigth,
+                    color=color,
+                    wings_len=0.5,
+                    price=5000
+                ))
+            return lc
+
+
+    def _load_standarts(self, file_path: str = "modules/lab_8/data/standarts.json"):
         with open(file_path, 'r', encoding='utf-8') as f:
             return json.load(f)
 

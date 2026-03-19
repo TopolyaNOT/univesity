@@ -1,5 +1,5 @@
 import random 
-from model import MegaHuman
+from .model import MegaHuman
 
 class MyDay():
     def __init__(self, human: MegaHuman):
@@ -14,6 +14,7 @@ class MyDay():
     def run_day(self) -> None:
         if not self.human.is_alive:
             print(self.human.param())
+            return
 
         print("Day start")
 

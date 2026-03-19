@@ -1,5 +1,6 @@
 from lizards.lizard import Lizard
 
+
 class Salamandra(Lizard):
     def __init__(
             self,
@@ -7,7 +8,7 @@ class Salamandra(Lizard):
             weight: float,
             color: str,
             wings_len: float,
-            price: float,
+            price: float
             ):
         
         super().__init__(name, weight, color, wings_len, price)
@@ -27,7 +28,7 @@ class Dragon(Lizard):
             weight: float,
             color: str,
             wings_len: float,
-            price: float,
+            price: float
             ):
         
         super().__init__(name, weight, color, wings_len, price)
@@ -48,7 +49,7 @@ class Dinsaur(Lizard):
             weight: float,
             color: str,
             wings_len: float,
-            price: float,
+            price: float
             ):
         
         super().__init__(name, weight, color, wings_len, price)
@@ -59,3 +60,26 @@ class Dinsaur(Lizard):
     def __repr__(self):
         stats = super().__repr__()
         return f"type: {self.lizard_type}\n{stats}\nspecial: {self.special}"
+    
+
+class Cat(Lizard):
+    def __init__(
+            self, 
+            name: str,
+            weight: float,
+            color: str,
+            wings_len: float,
+            price: float
+    ):
+        super().__init__(name, weight, color, wings_len, price)
+        self.special = "Kawaii"
+        self.lizard_type = "cat"
+
+    def __repr__(self):
+            stats = super().__repr__()
+            return f"type: {self.lizard_type}\n{stats}\nspecial: {self.special}"
+
+
+
+Lizard_type = Salamandra | Dragon | Dinsaur
+Lizard_post_type = Lizard_type | Cat

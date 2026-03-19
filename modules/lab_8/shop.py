@@ -1,12 +1,10 @@
 from generate_lizard import LizardGererator
-from lizards.lizards_types import Dragon, Dinsaur, Salamandra
+from lizards.lizards_types import Lizard_type
 from collections import Counter
 from typing import Any, List
 import random
 import re
 
-
-LizardTypes = Dragon | Dinsaur | Salamandra
 
 class Shop:
     def __init__(self, size: int = random.randint(1, 50)):
@@ -14,25 +12,29 @@ class Shop:
         self._lizardgererator = LizardGererator()
 
 
-    def shopping(self, user: Any) -> List[LizardTypes]:
+    def shopping(self, user: Any) -> List[Lizard_type]:
         self._welcome(user)
 
         user_basket = self._buy()
-        for i in user_basket:
-            print('\n',i)
+        self._prinnt_all_lizards(user_basket)
 
-        user_basket2 = self._sell(user_basket)
+        user_basket = self._sell(user_basket)
+
 
         print(self._advertisement(user_basket))
 
-        return user_basket2
+        return user_basket
 
 
     def _welcome(self, user: Any) -> None:
-        print(f"Welcome {user}\n\nToday we have {self._size} eggs")
+        print(
+            "\n======================================================="
+            f"\n                 WELCOME {user.upper()}               "
+            f"\n               TODAY WE HAVE {self._size} EGGS        "
+            "\n=======================================================")
 
 
-    def _buy(self) -> List[LizardTypes]:
+    def _buy(self) -> List[Lizard_type]:
         number_to_buy = 1
         while True:
             number_to_buy = int(input("How many eggs do you want to duy?\nAmount: "))
@@ -49,7 +51,7 @@ class Shop:
         return [self._lizardgererator.get_random_lizard() for _ in range(number_to_buy)]
 
 
-    def _advertisement(self, user_basket: List[LizardTypes]) -> str:
+    def _advertisement(self, user_basket: List[Lizard_type]) -> str:
         l = Counter([lizard.lizard_type for lizard in user_basket])
         types_result = f"Dragons \t:\t{l['dragons']}\nSalamandras\t:\t{l['salamandra']}\nDinosaurs\t:\t{l['dinosaur']}"
         phrase = None
@@ -60,25 +62,54 @@ class Shop:
             phrase = "I suppose you are profetional trainer. Well good luck!"
         else:
             phrase = "Men... WTF  ???"
-        return f'{types_result}\n{phrase}'
+
+        print(
+            "\n==================================================="
+            "\n||          THANK YOU FOR PURCHASE               ||"
+            "\n===================================================")
+        return f'\n{types_result}\n\n{phrase}'
     
 
-    def _sell(self, lizard_list: List[LizardTypes]) -> List[LizardTypes]:
-        seccessful = input("Do you want to change some lizards?\n(Yes/No)")
+    def _sell(self,  lizard_list: List[Lizard_type]) -> List[Lizard_type]:
+        successful = input("Do you want to change some lizards?\n(Yes/No): ")
         compensation = 0
-        if seccessful.lower() == "yes":
-            raw_lizard_to_change = input("Etner lizard's name to change: ")
-            clean_lizard_to_change = re.findall(r"\w", raw_lizard_to_change)
-            for i in lizard_list:
-                if i.name in clean_lizard_to_change:
-                    lizard_list.append(self._lizardgererator.get_random_lizard())
-                    compensation += int(i.price / 3)
-                    lizard_list.remove(i)
-            print(f"Compensation is {compensation}")
-        return lizard_list
+
+        if successful.lower() != 'yes':
+            self._prinnt_all_lizards(lizard_list)
+            return lizard_list
+
+        raw_lizard_to_change = input("\nEnter lizard's name to change: ")
+        clean_lizard_to_change = re.findall(r"[a-zA-Z]+_\d+", raw_lizard_to_change)
+        print(
+            "\n==================================================="
+            "\n||                  NEW LIZARDS                  ||"
+            "\n===================================================")
+        for i, v in enumerate(lizard_list):
+            if v.name in clean_lizard_to_change:
+                compensation += v.price // 3
+
+                new_lizard = self._lizardgererator.get_random_lizard()
+                print('\n',new_lizard)
+                lizard_list[i] = new_lizard
                     
+
+        print(f"\nCompensation is {compensation}")
+        self._prinnt_all_lizards(lizard_list)
+
+        return self._sell(lizard_list)     
+
+
+    def _prinnt_all_lizards(self, lizard_list: List[Lizard_type]) -> None:
+        print(
+            "\n==================================================="
+            "\n||                  ALL LIZARDS                  ||"
+            "\n===================================================")
+        for i in lizard_list:
+            print('\n',i)
+
+
+
 
 if __name__ == "__main__":
     shop_a = Shop()
     l = shop_a.shopping("Bob")
-    print(l)

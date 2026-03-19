@@ -1,0 +1,21 @@
+{
+    "a" : {
+        "dragon":3,
+        "salamandra":0,
+        "dinosaur":2,
+        "cat":0
+        
+    },
+    "b" : {
+        "dragon":1,
+        "salamandra":1,
+        "dinosaur":1,
+        "cat":0
+    },
+    "c" : {
+        "dragon":0,
+        "salamandra":0,
+        "dinosaur":0,
+        "cat":7
+    }
+}

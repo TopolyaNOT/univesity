@@ -219,8 +219,8 @@ class Human_V6(Mammals, Money):
 
 
     def param(self) -> None:
-        print(f"name: {self.name}\nsex: {self.sex}\nmammal_type: {self.mammal_type}\nheight: {self.height}\n \
-              weight: {self.weight}\nenergy: {self._energy}\nmood: {self.mood}\nalive: {self.is_alive}")
+        print(f"name: {self.name}\nsex: {self.sex}\nmammal_type: {self.mammal_type}\nheight: {self.height}"
+              f"\nweight: {self.weight}\nenergy: {self._energy}\nmood: {self.mood}\nalive: {self.is_alive}")
 
     def top_up(self, amount: float, product: str) -> bool:
         super().top_up(amount, product)

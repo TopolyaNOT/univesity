@@ -1,5 +1,5 @@
-from shop import Shop
-from lizards.lizards_types import Lizard_type, Lizard_post_type, Cat
+from .shop import Shop
+from .lizards.lizards_types import Lizard_type, Lizard_post_type, Cat
 from typing import List
 import random
 

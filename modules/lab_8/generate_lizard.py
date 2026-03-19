@@ -1,6 +1,6 @@
 import random
 from typing import List, Optional, Dict, Any
-from lizards.lizards_types import Lizard_post_type, Lizard_type, Dragon, Dinosaur, Salamandra, Cat
+from .lizards.lizards_types import Lizard_post_type, Lizard_type, Dragon, Dinosaur, Salamandra, Cat
 import json
 
 

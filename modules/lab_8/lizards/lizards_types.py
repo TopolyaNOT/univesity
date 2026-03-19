@@ -1,4 +1,4 @@
-from lizards.lizard import Lizard
+from .lizard import Lizard
 
 
 class Salamandra(Lizard):

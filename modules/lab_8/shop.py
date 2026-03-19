@@ -1,5 +1,5 @@
-from generate_lizard import LizardGererator
-from lizards.lizards_types import Lizard_type
+from .generate_lizard import LizardGererator
+from .lizards.lizards_types import Lizard_type
 from collections import Counter
 from typing import Any, List
 import random

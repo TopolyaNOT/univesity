@@ -1,7 +1,7 @@
-from lizards.lizards_types import Lizard_post_type, Lizard_type
-from generate_lizard import LizardGererator
+from .lizards.lizards_types import Lizard_post_type, Lizard_type
+from .generate_lizard import LizardGererator
 from itertools import chain
-from shop import Shop
+from .shop import Shop
 from typing import List, Dict, Any
 import random
 import json

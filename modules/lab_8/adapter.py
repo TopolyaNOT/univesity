@@ -11,7 +11,7 @@ class Adapter:
 
     def mas_adapt(self, lizard_list: List[Lizard_type]) -> List[Lizard_post_type]:
         for idx, lizard in enumerate(lizard_list):
-            if not self._is_safe(lizard):
+            if self._is_safe(lizard):
                 lizard_list[idx] = self._generate_cat() # type: ignore
         return lizard_list # type: ignore
 
@@ -25,7 +25,7 @@ class Adapter:
 
 
     def _is_safe(self, lizard: Lizard_post_type) -> bool:
-        return lizard.weight > 600 and lizard.weight < 200 or lizard.wings_len > 40 and lizard.wings_len < 20
+        return lizard.weight < 600 and lizard.weight > 200 or lizard.wings_len < 40 and lizard.wings_len > 20
         
 
     def _generate_cat(self) -> Cat:
